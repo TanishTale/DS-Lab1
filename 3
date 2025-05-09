@@ -1,0 +1,53 @@
+3.1.1. Write a C program to Sort given elements using Merge sort
+#include <stdio.h>
+#include "MergeSortFunctions.c"
+void main() {
+	int arr[15], i, n;
+	printf("Enter array size : ");
+	scanf("%d", &n);
+	printf("Enter %d elements : ", n);
+	for (i = 0; i < n; i++) {
+		scanf("%d", &arr[i]);
+	}
+	printf("Before sorting the elements are : ");
+	display(arr, n);
+	splitAndMerge(arr, 0, n - 1);
+	printf("After sorting the elements are : ");
+	display(arr, n);
+}
+#include <stdio.h>
+
+// Function to display array elements
+void display(int arr[], int size) {
+	for (int i = 0; i < size; i++) {
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+}
+
+// Merge function to combine two sorted halves
+void merge(int arr[], int left, int mid, int right) {
+	int n1 = mid - left + 1;
+	int n2 = right - mid;
+	
+	int L[n1], R[n2];
+	
+	// Copying data to temp arrays
+	for (int i = 0; i < n1; i++)
+		L[i] = arr[left + i];
+	for (int j = 0; j < n2; j++)
+		R[j] = arr[mid + 1 + j];
+
+	int i = 0, j = 0, k = left;
+	
+	// Merging the arrays in sorted order
+	while (i < n1 && j < n2) {
+		if (L[i] <= R[j]) {
+			arr[k] = L[i];
+			i++;
+		} else {
+			arr[k] = R[j];
+			j++;
+		}
+		k++;
+	}
